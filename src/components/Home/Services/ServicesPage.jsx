@@ -38,8 +38,8 @@ const ServicesPage = () => {
 
             {/* Services Section */}
             <section id="services" className="service-section" style={{ paddingTop: '120px', paddingBottom: '4rem', backgroundColor: '#f9f9f9' }}>
+            <h2 className="text-4xl font-bold mb-12 text-center">Our Services</h2>
                 <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-4xl font-bold mb-12">Our Services</h2>
                     <div className="grid md:grid-cols-3 gap-8">
                         {[
                             {
