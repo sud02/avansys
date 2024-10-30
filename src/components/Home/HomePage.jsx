@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './HomePage.css'; // Import the CSS file
+import './HomePage.css'; 
+import ContactForm from '../Contact/ContactForm';
 
 const HomePage = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -82,6 +83,7 @@ const HomePage = () => {
                     </div>
                 </div>
             </section>
+            <ContactForm />
         </div>
     );
 };
