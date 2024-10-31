@@ -12,7 +12,7 @@ function ProjectsHistory() {
                     <ul className="hidden md:flex space-x-6">
                         <li><a href="/" className="hover:text-blue-500">Home</a></li>
                         <li><a href="/history" className="hover:text-blue-500">Projects</a></li>
-                        <li><a href="/service" className="hover:text-blue-500">Services</a></li>
+                        <li><a href="/services" className="hover:text-blue-500">Services</a></li>
                         <li><a href="/contact" className="hover:text-blue-500">Contact</a></li>
                     </ul>
                     {/* Mobile Menu Button */}

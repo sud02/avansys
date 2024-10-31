@@ -14,6 +14,7 @@ const ServicesPage = () => {
                         <li><a href="/" className="hover:text-blue-500">Home</a></li>
                         <li><a href="/history" className="hover:text-blue-500">Projects</a></li>
                         <li><a href="/services" className="hover:text-blue-500">Services</a></li>
+                        <li><a href="/contact" className="hover:text-blue-500">Contact</a></li>
                     </ul>
                     {/* Mobile Menu */}
                     <div className="md:hidden">
@@ -32,6 +33,7 @@ const ServicesPage = () => {
                         <a href="/usp" className="block hover:text-blue-500">USP</a>
                         <a href="/history" className="block hover:text-blue-500">Projects</a>
                         <a href="/services" className="block hover:text-blue-500">Services</a>
+                        <li><a href="/contact" className="hover:text-blue-500">Contact</a></li>
                     </div>
                 )}
             </nav>
