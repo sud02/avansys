@@ -44,6 +44,21 @@ const ServicesPage = () => {
                 <div className="container mx-auto px-4 text-center">
                     <div className="grid md:grid-cols-3 gap-8">
                         {[
+                           {
+                               img: "ai-icon.svg",
+                               title: "AI & Machine Learning",
+                               description: "Harness the power of artificial intelligence to automate processes and enhance decision-making.",
+                           },
+                           {
+                               img: "consulting-icon.svg",
+                               title: "IT Consulting",
+                               description: "Expert consulting services to guide your business through technological transformation.",
+                           },
+                           {
+                               img: "development-icon.svg",
+                               title: "Custom Software Development",
+                               description: "End-to-end software development tailored to your business needs, from concept to deployment.",
+                           },
                             {
                                 img: "cloud-icon.svg",
                                 title: "Cloud Solutions",
@@ -59,21 +74,7 @@ const ServicesPage = () => {
                                 title: "Data Analytics",
                                 description: "Leverage data insights to drive business decisions with our state-of-the-art data analytics solutions.",
                             },
-                            {
-                                img: "ai-icon.svg",
-                                title: "AI & Machine Learning",
-                                description: "Harness the power of artificial intelligence to automate processes and enhance decision-making.",
-                            },
-                            {
-                                img: "consulting-icon.svg",
-                                title: "IT Consulting",
-                                description: "Expert consulting services to guide your business through technological transformation.",
-                            },
-                            {
-                                img: "development-icon.svg",
-                                title: "Custom Software Development",
-                                description: "End-to-end software development tailored to your business needs, from concept to deployment.",
-                            },
+
                         ].map((service, index) => (
                             <div key={index} className="service-item bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out transform hover:-translate-y-2">
                                 <img src={service.img} alt={service.title} style={{ width: '50px', marginBottom: '1rem' }} />

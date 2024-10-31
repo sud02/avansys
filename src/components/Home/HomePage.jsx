@@ -21,7 +21,7 @@ const HomePage = () => {
             {/* Navbar */}
             <nav className="p-6 bg-gray-900 text-white fixed w-full top-0 z-10 shadow-lg">
                 <div className="container mx-auto flex justify-between items-center">
-                    <h1 className="text-3xl font-bold">IT Consultancy</h1>
+                    <h1 className="text-3xl font-bold">Advanix</h1>
                     <ul className="hidden md:flex space-x-6">
                         <li><Link to="/" className="hover:text-blue-500">Home</Link></li>
                         <li><Link to="/history" className="hover:text-blue-500">Projects</Link></li>
@@ -52,7 +52,7 @@ const HomePage = () => {
                     {/* Left Side (Text) */}
                     <div className="hero-text text-left w-1/2">
                         <h2 className="text-5xl font-semibold">Transforming IT Solutions</h2>
-                        <p className="mt-4 text-xl">Innovative, Scalable, and Reliable</p>
+                        <p className="mt-4 text-xl">AI-Powered Innovation for Everyone, Everywhere</p>
                         <div className="scroll-down" onClick={() => scrollTo('#usp')}>↓ Scroll Down</div>
                     </div>
 
@@ -69,8 +69,8 @@ const HomePage = () => {
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-3 gap-8">
                         <div className="usp-item">
-                            <h3>Expert IT Solutions</h3>
-                            <p>We provide cutting-edge solutions for businesses of all sizes, leveraging modern technologies to deliver results.</p>
+                            <h3>AI-Driven IT Solutions</h3>
+                            <p>We offer intelligent solutions tailored to meet the unique needs of every client, utilizing advanced AI to drive innovation and efficiency for businesses of all sizes. Our focus is on making AI accessible and effective for everyone, everywhere</p>
                         </div>
                         <div className="usp-item">
                             <h3>Scalable Infrastructure</h3>

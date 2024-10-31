@@ -40,23 +40,23 @@ function ProjectsHistory() {
                 <div className="timeline max-w-3xl mx-auto text-left space-y-8">
                     {/* Timeline Item 1 */}
                     <div className="timeline-item flex items-center gap-6">
-                        <span className="font-bold text-2xl">2020</span>
+                        <span className="font-bold text-2xl">2022</span>
                         <div className="timeline-content">
-                            <h3 className="font-semibold text-lg">Founded in 2020</h3>
-                            <p className="text-gray-600 mt-1">Our IT consultancy firm was established to bridge the gap between businesses and technology, delivering exceptional IT solutions.</p>
+                            <h3 className="font-semibold text-lg">Founded in 2022</h3>
+                            <p className="text-gray-600 mt-1">Advanix was established to bridge the gap between businesses and technology, delivering exceptional IT solutions induced with AI.</p>
                         </div>
                     </div>
                     {/* Timeline Item 2 */}
                     <div className="timeline-item flex items-center gap-6">
-                        <span className="font-bold text-2xl">2021</span>
+                        <span className="font-bold text-2xl">2023</span>
                         <div className="timeline-content">
                             <h3 className="font-semibold text-lg">First Major Project</h3>
-                            <p className="text-gray-600 mt-1">We successfully completed our first enterprise project, helping a major financial institution migrate to the cloud.</p>
+                            <p className="text-gray-600 mt-1">We successfully completed our first enterprise project, assisting a statewide Animal Welfare organization in its digital transformation.</p>
                         </div>
                     </div>
                     {/* Timeline Item 3 */}
                     <div className="timeline-item flex items-center gap-6">
-                        <span className="font-bold text-2xl">2023</span>
+                        <span className="font-bold text-2xl">2024</span>
                         <div className="timeline-content">
                             <h3 className="font-semibold text-lg">Global Expansion</h3>
                             <p className="text-gray-600 mt-1">We expanded our operations internationally, providing IT solutions to companies across multiple continents.</p>
@@ -84,13 +84,13 @@ function ProjectsHistory() {
                         <div className="project-item">
                             <img src="project2.jpg" alt="Project 2" className="w-full rounded-md mb-4" />
                             <h3 className="font-semibold text-xl mt-4 text-center">AI-Powered Analytics Dashboard</h3>
-                            <p className="text-gray-600 mt-2 text-center">Created a custom AI-powered analytics tool for a logistics company to optimize operations and reduce costs.</p>
+                            <p className="text-gray-600 mt-2 text-center">Created a custom AI-powered analytics tool for a software company to optimize operations and reduce costs.</p>
                         </div>
                         {/* Project 3 */}
                         <div className="project-item">
                             <img src="project3.jpg" alt="Project 3" className="w-full rounded-md mb-4" />
-                            <h3 className="font-semibold text-xl mt-4 text-center">Cloud Migration for Finance</h3>
-                            <p className="text-gray-600 mt-2 text-center">Led the migration of a financial institution's IT infrastructure to the cloud, ensuring security and compliance.</p>
+                            <h3 className="font-semibold text-xl mt-4 text-center">GPS-Enabled Full Stack Solution</h3>
+                            <p className="text-gray-600 mt-2 text-center">A full stack solution with built-in GPS tracking, enabling real-time location data and interactive mapping for enhanced operational efficiency.</p>
                         </div>
                     </div>
                 </div>

@@ -36,7 +36,7 @@ function Footer() {
                 </div>
             </div>
             <div className="footer-bottom">
-                &copy; 2024 IT Consultancy. All rights reserved.
+                &copy; 2024 Advanix. All rights reserved.
             </div>
         </footer>
     );
