@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './components/Home/HomePage';
 import ProjectsHistory from './components/ProjectHistory/ProjectsHistory.jsx';
 import ServicesPage from './components/Home/Services/ServicesPage.jsx'; 
-import ContactPage from './components/Contact/ContactForm.jsx'; 
+import ContactPage from './components/Contact/ContactForm.jsx';
+import Footer from './components/Footer/Footer';
+
 
 function App() {
     return (
@@ -15,8 +17,10 @@ function App() {
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                 </Routes>
+                <Footer />
             </div>
         </Router>
+
     );
 }
 
