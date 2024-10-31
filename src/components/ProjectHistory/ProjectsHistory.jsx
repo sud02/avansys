@@ -11,8 +11,9 @@ function ProjectsHistory() {
                     <h1 className="text-3xl font-bold">IT Consultancy</h1>
                     <ul className="hidden md:flex space-x-6">
                         <li><a href="/" className="hover:text-blue-500">Home</a></li>
-                        <li><a href="/projects" className="hover:text-blue-500">Projects</a></li>
-                        <li><a href="/services" className="hover:text-blue-500">Services</a></li>
+                        <li><a href="/history" className="hover:text-blue-500">Projects</a></li>
+                        <li><a href="/service" className="hover:text-blue-500">Services</a></li>
+                        <li><a href="/contact" className="hover:text-blue-500">Contact</a></li>
                     </ul>
                     {/* Mobile Menu Button */}
                     <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-white">
@@ -28,6 +29,7 @@ function ProjectsHistory() {
                         <a href="/" className="block hover:text-blue-500">Home</a>
                         <a href="/projects" className="block hover:text-blue-500">Projects</a>
                         <a href="/services" className="block hover:text-blue-500">Services</a>
+                        <a href="/contact" className="hover:text-blue-500">Contact</a>
                     </div>
                 )}
             </nav>
