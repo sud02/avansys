@@ -6,7 +6,7 @@ function Footer() {
     return (
         <footer className="footer">
             <div className="footer-container">
-                <h1 className="footer-title">IT Consultancy</h1>
+                <h1 className="footer-title">advanix</h1>
 
                 <div className="footer-links">
                     <ul className="footer-list">
@@ -36,7 +36,7 @@ function Footer() {
                 </div>
             </div>
             <div className="footer-bottom">
-                &copy; 2024 Advanix. All rights reserved.
+                &copy; 2024 advanix. All rights reserved.
             </div>
         </footer>
     );
