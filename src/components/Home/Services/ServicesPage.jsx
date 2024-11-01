@@ -77,7 +77,7 @@ const ServicesPage = () => {
 
                         ].map((service, index) => (
                             <div key={index} className="service-item bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out transform hover:-translate-y-2">
-                                <img src={service.img} alt={service.title} style={{ width: '50px', marginBottom: '1rem' }} />
+{/*                                 <img src={service.img} alt={service.title} style={{ width: '50px', marginBottom: '1rem' }} /> */}
                                 <h3 className="text-xl font-semibold">{service.title}</h3>
                                 <p className="mt-4 text-gray-600">{service.description}</p>
                             </div>

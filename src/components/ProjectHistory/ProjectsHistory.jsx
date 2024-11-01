@@ -76,19 +76,19 @@ function ProjectsHistory() {
                     <div className="grid md:grid-cols-3 gap-8">
                         {/* Project 1 */}
                         <div className="project-item">
-                            <img src="project1.jpg" alt="Project 1" className="w-full rounded-md mb-4" />
+{/*                             <img src="project1.jpg" alt="Project 1" className="w-full rounded-md mb-4" /> */}
                             <h3 className="font-semibold text-xl mt-4 text-center">E-commerce Platform Development</h3>
                             <p className="text-gray-600 mt-2 text-center">Developed a high-traffic e-commerce platform for a global retailer, ensuring seamless user experience and scalability.</p>
                         </div>
                         {/* Project 2 */}
                         <div className="project-item">
-                            <img src="project2.jpg" alt="Project 2" className="w-full rounded-md mb-4" />
+{/*                             <img src="project2.jpg" alt="Project 2" className="w-full rounded-md mb-4" /> */}
                             <h3 className="font-semibold text-xl mt-4 text-center">AI-Powered Analytics Dashboard</h3>
                             <p className="text-gray-600 mt-2 text-center">Created a custom AI-powered analytics tool for a software company to optimize operations and reduce costs.</p>
                         </div>
                         {/* Project 3 */}
                         <div className="project-item">
-                            <img src="project3.jpg" alt="Project 3" className="w-full rounded-md mb-4" />
+{/*                             <img src="project3.jpg" alt="Project 3" className="w-full rounded-md mb-4" /> */}
                             <h3 className="font-semibold text-xl mt-4 text-center">GPS-Enabled Full Stack Solution</h3>
                             <p className="text-gray-600 mt-2 text-center">A full stack solution with built-in GPS tracking, enabling real-time location data and interactive mapping for enhanced operational efficiency.</p>
                         </div>
