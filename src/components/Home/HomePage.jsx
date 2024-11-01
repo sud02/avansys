@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './HomePage.css'; 
+import './HomePage.css';
+// import { Canvas } from "@react-three/fiber";
 import ContactForm from '../Contact/ContactForm';
+import FloatingRobot from '../Robot/FloatingRobot';
 
 const HomePage = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -56,10 +58,19 @@ const HomePage = () => {
                         <div className="scroll-down" onClick={() => scrollTo('#usp')}>↓ Scroll Down</div>
                     </div>
 
-                    {/* Right Side (Image) */}
-                    <div className="hero-image w-1/2">
-                        <img src="/path/to/hero-bg3.webp" alt="Illustration" className="opacity-70 object-cover" />
-                    </div>
+{/*                     */}{/* Right Side (Floating 3D Robot Face) */}
+{/*                    <div className="hero-image w-1/2"> */}
+{/*                        <FloatingRobotCanvas style={{ height: "300px" }}> */}
+{/*                            <ambientLight intensity={0.5} /> */}
+{/*                            <directionalLight position={[5, 5, 5]} /> */}
+{/*                            <FloatingRobot /> */}
+{/*                        </FloatingRobotCanvas> */}
+{/*                    </div> */}
+
+                    {/* Right Side (2D Floating Robot Illustration) */}
+                            <div className="hero-image w-1/2">
+                                <FloatingRobot />
+                            </div>
                 </div>
             </section>
 
