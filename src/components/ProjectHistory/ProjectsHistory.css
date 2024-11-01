@@ -1,0 +1,29 @@
+@media (max-width: 640px) {
+    .history-section h2 {
+        font-size: 2.5rem;
+    }
+    
+    .timeline-item span {
+        font-size: 1.5rem;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .timeline-content p {
+        font-size: 0.9rem;
+    }
+
+    .project-section h2 {
+        font-size: 2.5rem;
+    }
+
+    .project-item h3 {
+        font-size: 1.2rem;
+    }
+    
+    .project-item p {
+        font-size: 0.9rem;
+    }
+}

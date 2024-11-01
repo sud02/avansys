@@ -1,39 +1,9 @@
-import React, { useState } from 'react';
-
+import React from 'react';
+import './ProjectsHistory.css'
 function ProjectsHistory() {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
         <div>
-            {/* Navbar */}
-            <nav className="p-6 bg-gray-900 text-white fixed w-full top-0 z-10 shadow-lg">
-                <div className="container mx-auto flex justify-between items-center">
-                    <h1 className="text-3xl font-bold">IT Consultancy</h1>
-                    <ul className="hidden md:flex space-x-6">
-                        <li><a href="/" className="hover:text-blue-500">Home</a></li>
-                        <li><a href="/history" className="hover:text-blue-500">Projects</a></li>
-                        <li><a href="/services" className="hover:text-blue-500">Services</a></li>
-                        <li><a href="/contact" className="hover:text-blue-500">Contact</a></li>
-                    </ul>
-                    {/* Mobile Menu Button */}
-                    <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                    </button>
-                </div>
-
-                {/* Mobile Menu Dropdown */}
-                {mobileMenuOpen && (
-                    <div className="md:hidden bg-gray-800 text-white p-4 space-y-4">
-                        <a href="/" className="block hover:text-blue-500">Home</a>
-                        <a href="/projects" className="block hover:text-blue-500">Projects</a>
-                        <a href="/services" className="block hover:text-blue-500">Services</a>
-                        <a href="/contact" className="hover:text-blue-500">Contact</a>
-                    </div>
-                )}
-            </nav>
-
             {/* Company History Section */}
             <section className="history-section bg-gray-100 py-16" style={{ paddingTop: '120px' }}>
                 <h2 className="text-center text-4xl font-bold mb-12">Our Journey</h2>
