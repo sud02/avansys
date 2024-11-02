@@ -24,12 +24,14 @@ function Footer() {
                         <li><Link to="/terms" className="footer-link">Terms of Service</Link></li>
                         <li><Link to="/feedback" className="footer-link">Feedback</Link></li>
                         <li><Link to="/events" className="footer-link">Events</Link></li>
-
                     </ul>
                 </div>
             </div>
             <div className="footer-bottom">
                 &copy; 2024 advanix. All rights reserved.
+                <div className="footer-email">
+                    <div className="footer-email-link">business@advanix.in</div>
+                </div>
             </div>
         </footer>
     );
