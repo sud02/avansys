@@ -27,7 +27,7 @@ const HomePage = () => {
                     <div className="hero-text text-left w-1/2">
                         <h2 className="text-5xl font-semibold">Transforming IT Solutions</h2>
                         <p className="mt-4 text-xl">AI-Powered Innovation for Everyone, Everywhere</p>
-                        <div className="scroll-down" onClick={() => scrollTo('#usp')}>↓ Scroll Down</div>
+{/*                         <div className="scroll-down" onClick={() => scrollTo('#usp')}>↓ Scroll Down</div> */}
                     </div>
 
 {/*                     */}{/* Right Side (Floating 3D Robot Face) */}
