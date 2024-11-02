@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { init, send } from 'emailjs-com'; 
 import './ContactForm.css';
+
+init("yvf4mewD3SJB6ZBfp");
 
 const ContactPage = () => {
     const [formData, setFormData] = useState({
@@ -15,13 +18,33 @@ const ContactPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form data submitted:', formData);
-        //api call here
+
+        const templateParams = {
+            from_name: formData.name,    
+            from_email: formData.email,   
+            from_phone: formData.phone,  
+            message: formData.message,
+            to_name: 'Recipient Name',    
+        };
+
+        // Send email
+        send('service_ramqe3z', 'template_kuz73g9', templateParams, 'yvf4mewD3SJB6ZBfp')
+            .then((response) => {
+                console.log('Email sent successfully!', response.status, response.text);
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    message: '',
+                });
+            })
+            .catch((err) => {
+                console.error('Failed to send email. Error:', err);
+            });
     };
 
     return (
         <div>
-
             {/* Contact Form */}
             <div className="contact-form-container pt-24">
                 <h2>Contact Us</h2>
