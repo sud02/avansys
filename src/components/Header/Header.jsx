@@ -1,13 +1,29 @@
 // Header.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import './Header.css'; // Create this file if you want to style the header separately
+import './Header.css';
 
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
+
+    // Handle scroll event to change header appearance
+    useEffect(() => {
+        const handleScroll = () => {
+            const isScrolled = window.scrollY > 20;
+            if (isScrolled !== scrolled) {
+                setScrolled(isScrolled);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [scrolled]);
 
     // Event handler to close the menu when clicking outside
     const handleOutsideClick = (event) => {
@@ -25,75 +41,172 @@ const Header = () => {
     useEffect(() => {
         if (mobileMenuOpen) {
             document.addEventListener('mousedown', handleOutsideClick);
+            // Prevent scrolling when menu is open
+            document.body.style.overflow = 'hidden';
         } else {
             document.removeEventListener('mousedown', handleOutsideClick);
+            // Restore scrolling when menu is closed
+            document.body.style.overflow = 'visible';
         }
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
+            document.body.style.overflow = 'visible';
         };
     }, [mobileMenuOpen]);
 
+    const toggleMobileMenu = () => {
+        setMobileMenuOpen(!mobileMenuOpen);
+    };
+
     return (
-        <nav className="p-6 bg-gray-900 text-white fixed w-full top-0 z-10 shadow-lg">
-            <div className="container mx-auto flex justify-between items-center">
-                <h1 className="text-3xl font-bold">ADVANIX</h1>
-                <ul className="hidden md:flex space-x-6">
-                    <li>
-                        <Link
-                            to="/"
-                            className="hover:text-blue-500"
-                            onClick={(e) => {
-                                if (location.pathname === '/') e.preventDefault();
-                            }}
-                        >
-                            Home
-                        </Link>
-                    </li>
-                    <li><Link to="/history" className="hover:text-blue-500">Projects</Link></li>
-                    <li><Link to="/services" className="hover:text-blue-500">Services</Link></li>
-                    <li><Link to="/contact" className="hover:text-blue-500">Contact</Link></li>
-                </ul>
-                {/* Mobile Menu Button */}
-                <div className="md:hidden">
+        <header className={`header ${scrolled ? 'header-scrolled' : ''}`}>
+            <div className="header-background">
+                <div className="header-accent"></div>
+            </div>
+            <div className="header-container">
+                <div className="logo-container">
+                    <Link to="/" className="logo">ADVANIX</Link>
+                </div>
+                
+                <nav className="main-nav">
+                    <ul className="nav-list">
+                        <li className="nav-item">
+                            <Link 
+                                to="/"
+                                className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+                            >
+                                Home
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link 
+                                to="/projects" 
+                                className={`nav-link ${location.pathname === '/projects' ? 'active' : ''}`}
+                            >
+                                Projects
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link 
+                                to="/services" 
+                                className={`nav-link ${location.pathname === '/services' ? 'active' : ''}`}
+                            >
+                                Services
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link 
+                                to="/contact" 
+                                className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`}
+                            >
+                                Contact
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div className="cta-container">
+                    <Link to="/get-started" className="cta-button">Get Started</Link>
+                </div>
+                
+                {/* Mobile Menu Button - Only visible when menu is closed */}
+                {!mobileMenuOpen && (
                     <button
                         ref={buttonRef}
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="text-white"
+                        onClick={toggleMobileMenu}
+                        className="menu-toggle"
+                        aria-label="Open menu"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
+                        <span className="menu-line"></span>
+                        <span className="menu-line"></span>
+                        <span className="menu-line"></span>
                     </button>
+                )}
+            </div>
+
+            {/* Mobile Menu Overlay */}
+            <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'open' : ''}`}>
+                <div 
+                    ref={menuRef}
+                    className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}
+                >
+                    <div className="mobile-menu-header">
+                        <div className="logo">ADVANIX</div>
+                        {/* Close button - Only rendered when menu is open */}
+                        <button 
+                            onClick={toggleMobileMenu}
+                            className="close-button"
+                            aria-label="Close menu"
+                        >
+                            <span className="close-icon"></span>
+                        </button>
+                    </div>
+                    
+                    <nav className="mobile-nav">
+                        <ul className="mobile-nav-list">
+                            <li className="mobile-nav-item">
+                                <Link 
+                                    to="/" 
+                                    className={`mobile-nav-link ${location.pathname === '/' ? 'active' : ''}`}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    Home
+                                </Link>
+                            </li>
+                            <li className="mobile-nav-item">
+                                <Link 
+                                    to="/projects" 
+                                    className={`mobile-nav-link ${location.pathname === '/projects' ? 'active' : ''}`}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    Projects
+                                </Link>
+                            </li>
+                            <li className="mobile-nav-item">
+                                <Link 
+                                    to="/services" 
+                                    className={`mobile-nav-link ${location.pathname === '/services' ? 'active' : ''}`}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    Services
+                                </Link>
+                            </li>
+                            <li className="mobile-nav-item">
+                                <Link 
+                                    to="/contact" 
+                                    className={`mobile-nav-link ${location.pathname === '/contact' ? 'active' : ''}`}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    Contact
+                                </Link>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                    <div className="mobile-cta">
+                        <Link 
+                            to="/get-started" 
+                            className="mobile-cta-button"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            Get Started
+                        </Link>
+                    </div>
+                    
+                    <div className="mobile-social">
+                        <a href="https://twitter.com" className="mobile-social-link" target="_blank" rel="noopener noreferrer">
+                            <span className="mobile-social-icon">𝕏</span>
+                        </a>
+                        <a href="https://linkedin.com" className="mobile-social-link" target="_blank" rel="noopener noreferrer">
+                            <span className="mobile-social-icon">in</span>
+                        </a>
+                        <a href="https://instagram.com" className="mobile-social-link" target="_blank" rel="noopener noreferrer">
+                            <span className="mobile-social-icon">IG</span>
+                        </a>
+                    </div>
                 </div>
             </div>
-            {/* Mobile Menu */}
-            <div
-                ref={menuRef}
-                className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-                    mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}
-            >
-                <ul className="mt-4 space-y-2">
-                    <li>
-                        <Link
-                            to="/"
-                            className="block text-center hover:text-blue-500"
-                            onClick={(e) => {
-                                if (location.pathname === '/') e.preventDefault();
-                                setMobileMenuOpen(false);
-                            }}
-                        >
-                            Home
-                        </Link>
-                    </li>
-                    <li><Link to="/history" className="block text-center hover:text-blue-500" onClick={() => setMobileMenuOpen(false)}>Projects</Link></li>
-                    <li><Link to="/services" className="block text-center hover:text-blue-500" onClick={() => setMobileMenuOpen(false)}>Services</Link></li>
-                    <li><Link to="/contact" className="block text-center hover:text-blue-500" onClick={() => setMobileMenuOpen(false)}>Contact</Link></li>
-                </ul>
-            </div>
-        </nav>
+        </header>
     );
 };
 

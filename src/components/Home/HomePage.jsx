@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './HomePage.css';
 // import { Canvas } from "@react-three/fiber";
 import ContactForm from '../Contact/ContactForm';
@@ -6,6 +6,93 @@ import FloatingRobot from '../Robot/FloatingRobot';
 import Header from '../Header/Header';
 
 const HomePage = () => {
+    const [isVisible, setIsVisible] = useState({
+        hero: false,
+        usp1: false,
+        usp2: false, 
+        usp3: false
+    });
+    
+    const heroRef = useRef(null);
+    const uspRefs = [useRef(null), useRef(null), useRef(null)];
+    const cursorRef = useRef(null);
+    const cursorDotRef = useRef(null);
+    
+    // Custom cursor effect
+    useEffect(() => {
+        const cursor = cursorRef.current;
+        const cursorDot = cursorDotRef.current;
+        
+        if (!cursor || !cursorDot) return;
+        
+        const moveCursor = (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursor.style.left = `${posX}px`;
+            cursor.style.top = `${posY}px`;
+            
+            // Delayed follow for dot
+            setTimeout(() => {
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+            }, 50);
+        };
+        
+        window.addEventListener('mousemove', moveCursor);
+        
+        return () => {
+            window.removeEventListener('mousemove', moveCursor);
+        };
+    }, []);
+
+    // Intersection Observer for animations
+    useEffect(() => {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.25,
+        };
+
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setIsVisible(prev => ({ ...prev, hero: true }));
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const uspObservers = uspRefs.map((ref, index) => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setIsVisible(prev => ({ ...prev, [`usp${index + 1}`]: true }));
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { ...observerOptions, threshold: 0.15 });
+            
+            return observer;
+        });
+
+        if (heroRef.current) {
+            heroObserver.observe(heroRef.current);
+        }
+
+        uspRefs.forEach((ref, index) => {
+            if (ref.current) {
+                uspObservers[index].observe(ref.current);
+            }
+        });
+
+        return () => {
+            if (heroRef.current) heroObserver.unobserve(heroRef.current);
+            uspRefs.forEach((ref, index) => {
+                if (ref.current) uspObservers[index].unobserve(ref.current);
+            });
+        };
+    }, []);
 
     const scrollTo = (selector) => {
         const element = document.querySelector(selector);
@@ -18,55 +105,142 @@ const HomePage = () => {
     };
 
     return (
-        <div>
+        <div className="homepage">
             <Header />
+            
+            {/* Custom cursor */}
+            <div className="cursor" ref={cursorRef}></div>
+            <div className="cursor-dot" ref={cursorDotRef}></div>
+            
             {/* Hero Section */}
-            <section id="home" className="hero flex items-center justify-center">
-                <div className="container mx-auto flex justify-between items-center">
-                    {/* Left Side (Text) */}
-                    <div className="hero-text text-left w-1/2">
-                        <h2 className="text-5xl font-semibold">Transforming IT Solutions</h2>
-                        <p className="mt-4 text-xl">AI-Powered Innovation for Everyone, Everywhere</p>
-                        <div className="scroll-down" onClick={() => scrollTo('#usp')}>↓ Scroll Down</div>
+            <section id="home" className={`hero ${isVisible.hero ? 'visible' : ''}`} ref={heroRef}>
+                <div className="hero-background">
+                    <div className="hero-gradient"></div>
+                    <div className="hero-particles">
+                        {Array(20).fill().map((_, i) => (
+                            <div key={i} className="particle"></div>
+                        ))}
                     </div>
-
-{/*                     */}{/* Right Side (Floating 3D Robot Face) */}
-{/*                    <div className="hero-image w-1/2"> */}
-{/*                        <FloatingRobotCanvas style={{ height: "300px" }}> */}
-{/*                            <ambientLight intensity={0.5} /> */}
-{/*                            <directionalLight position={[5, 5, 5]} /> */}
-{/*                            <FloatingRobot /> */}
-{/*                        </FloatingRobotCanvas> */}
-{/*                    </div> */}
-
-                    {/* Right Side (2D Floating Robot Illustration) */}
-                            <div className="hero-image w-1/2">
-                                <FloatingRobot />
-                            </div>
+                </div>
+                
+                <div className="hero-content">
+                    <div className="hero-text">
+                        <h1 className="hero-title">
+                            <span className="hero-title-line">Transforming</span>
+                            <span className="hero-title-line">IT Solutions</span>
+                        </h1>
+                        <p className="hero-subtitle">AI-Powered Innovation for Everyone, Everywhere</p>
+                        
+                        <div className="hero-cta">
+                            <button className="primary-button" onClick={() => scrollTo('#contact')}>
+                                Get Started
+                                <span className="button-arrow">→</span>
+                            </button>
+                            <button className="secondary-button" onClick={() => scrollTo('#usp')}>
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div className="hero-visual">
+                        <div className="abstract-shape shape-1"></div>
+                        <div className="abstract-shape shape-2"></div>
+                        <div className="abstract-shape shape-3"></div>
+                        <div className="glowing-circle"></div>
+                    </div>
+                </div>
+                
+                <div className="scroll-indicator" onClick={() => scrollTo('#usp')}>
+                    <span className="scroll-text">Scroll</span>
+                    <span className="scroll-icon"></span>
                 </div>
             </section>
 
             {/* USP Section */}
             <section id="usp" className="usp-section">
-            <h2 className="text-4xl font-bold mb-8">Why Choose Us?</h2>
-                <div className="container mx-auto px-4">
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="usp-item">
-                            <h3>AI-Driven IT Solutions</h3>
-                            <p>We offer intelligent solutions tailored to meet the unique needs of every client, utilizing advanced AI to drive innovation and efficiency for businesses of all sizes. Our focus is on making AI accessible and effective for everyone, everywhere</p>
+                <div className="section-title-container">
+                    <h2 className="section-title">Why Choose Us?</h2>
+                    <div className="section-title-underline"></div>
+                </div>
+                
+                <div className="usp-container">
+                    <div className={`usp-item ${isVisible.usp1 ? 'visible' : ''}`} ref={uspRefs[0]}>
+                        <div className="usp-icon">
+                            <div className="icon-ai"></div>
                         </div>
-                        <div className="usp-item">
-                            <h3>Scalable Infrastructure</h3>
-                            <p>Our services are designed to grow with your business, offering flexibility and scalability to adapt to your needs.</p>
+                        <h3 className="usp-title">AI-Driven IT Solutions</h3>
+                        <p className="usp-description">
+                            We offer intelligent solutions tailored to meet the unique needs of every client, 
+                            utilizing advanced AI to drive innovation and efficiency for businesses of all sizes.
+                        </p>
+                        <div className="usp-link">
+                            <a href="/services">Explore AI Solutions</a>
                         </div>
-                        <div className="usp-item">
-                            <h3>24/7 Support</h3>
-                            <p>Round-the-clock support from our dedicated team ensures your business stays online and operational at all times.</p>
+                    </div>
+                    
+                    <div className={`usp-item ${isVisible.usp2 ? 'visible' : ''}`} ref={uspRefs[1]}>
+                        <div className="usp-icon">
+                            <div className="icon-scalable"></div>
+                        </div>
+                        <h3 className="usp-title">Scalable Infrastructure</h3>
+                        <p className="usp-description">
+                            Our services are designed to grow with your business, offering flexibility 
+                            and scalability to adapt to your evolving needs and goals.
+                        </p>
+                        <div className="usp-link">
+                            <a href="/services">View Our Infrastructure</a>
+                        </div>
+                    </div>
+                    
+                    <div className={`usp-item ${isVisible.usp3 ? 'visible' : ''}`} ref={uspRefs[2]}>
+                        <div className="usp-icon">
+                            <div className="icon-support"></div>
+                        </div>
+                        <h3 className="usp-title">24/7 Support</h3>
+                        <p className="usp-description">
+                            Round-the-clock support from our dedicated team ensures your business 
+                            stays online and operational at all times without interruption.
+                        </p>
+                        <div className="usp-link">
+                            <a href="/contact">Contact Support</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div className="usp-background">
+                    <div className="usp-accent"></div>
+                </div>
+            </section>
+            
+            {/* Interactive Feature Section */}
+            <section className="interactive-section">
+                <div className="interactive-container">
+                    <div className="interactive-text">
+                        <h2 className="interactive-title">Experience the Future of IT</h2>
+                        <p className="interactive-description">
+                            Our innovative approach combines cutting-edge technology with human expertise to deliver 
+                            solutions that transform businesses and drive real results.
+                        </p>
+                    </div>
+                    
+                    <div className="interactive-demo">
+                        <div className="demo-box">
+                            <div className="demo-overlay">
+                                <p>Hover to Explore</p>
+                            </div>
+                            <div className="demo-content">
+                                <div className="demo-item"></div>
+                                <div className="demo-item"></div>
+                                <div className="demo-item"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <ContactForm />
+            
+            <div id="contact">
+                <ContactForm />
+            </div>
         </div>
     );
 };
