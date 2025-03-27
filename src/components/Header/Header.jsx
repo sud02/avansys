@@ -80,8 +80,8 @@ const Header = () => {
                         </li>
                         <li className="nav-item">
                             <Link 
-                                to="/projects" 
-                                className={`nav-link ${location.pathname === '/projects' ? 'active' : ''}`}
+                                to="/history" 
+                                className={`nav-link ${location.pathname === '/history' ? 'active' : ''}`}
                             >
                                 Projects
                             </Link>
@@ -155,8 +155,8 @@ const Header = () => {
                             </li>
                             <li className="mobile-nav-item">
                                 <Link 
-                                    to="/projects" 
-                                    className={`mobile-nav-link ${location.pathname === '/projects' ? 'active' : ''}`}
+                                    to="/history" 
+                                    className={`mobile-nav-link ${location.pathname === '/history' ? 'active' : ''}`}
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     Projects

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './HomePage.css';
-// import { Canvas } from "@react-three/fiber";
+import Spline from '@splinetool/react-spline';
 import ContactForm from '../Contact/ContactForm';
 import FloatingRobot from '../Robot/FloatingRobot';
 import Header from '../Header/Header';
@@ -104,6 +104,138 @@ const HomePage = () => {
         }
     };
 
+    const onSplineLoad = (spline) => {
+        console.log('Spline scene loaded:', spline);
+        
+        try {
+            // Try to access the scene and set background to transparent
+            if (spline && spline.runtime && spline.runtime.scene) {
+                // Set background to transparent
+                if (spline.runtime.scene.background) {
+                    spline.runtime.scene.background = null;
+                }
+                
+                // Also try to clear any background color or texture
+                if (spline.runtime.renderer) {
+                    spline.runtime.renderer.setClearColor(0x000000, 0); // Transparent background
+                }
+            }
+            
+            // Scale up the 3D model if possible
+            if (spline && spline.findObjectByName) {
+                // Find main objects and scale them up
+                const sceneObjects = spline.findObjectsByType('Object3D');
+                if (sceneObjects && sceneObjects.length) {
+                    sceneObjects.forEach(obj => {
+                        if (obj.scale) {
+                            // Increase scale by 20%
+                            obj.scale.set(
+                                obj.scale.x * 1.2, 
+                                obj.scale.y * 1.2, 
+                                obj.scale.z * 1.2
+                            );
+                        }
+                    });
+                }
+                
+                // Completely lock down Spline scene to prevent any movement
+                if (spline.runtime) {
+                    // Disable all interaction
+                    if (spline.runtime.orbitControls) {
+                        spline.runtime.orbitControls.enabled = false;
+                        spline.runtime.orbitControls.autoRotate = false;
+                        spline.runtime.orbitControls.enableDamping = false;
+                        spline.runtime.orbitControls.enableZoom = false;
+                        spline.runtime.orbitControls.enablePan = false;
+                        spline.runtime.orbitControls.enableRotate = false;
+                    }
+                    
+                    // Fix camera
+                    if (spline.runtime.camera) {
+                        const camera = spline.runtime.camera;
+                        
+                        // Store original position, rotation and target
+                        const originalPosition = { ...camera.position };
+                        const originalRotation = camera.rotation ? { ...camera.rotation } : null;
+                        const originalTarget = camera.target ? { ...camera.target } : null;
+                        
+                        // Freeze camera position
+                        if (camera.position) {
+                            Object.defineProperty(camera.position, 'x', {
+                                get: () => originalPosition.x,
+                                set: () => originalPosition.x
+                            });
+                            Object.defineProperty(camera.position, 'y', {
+                                get: () => originalPosition.y,
+                                set: () => originalPosition.y
+                            });
+                            Object.defineProperty(camera.position, 'z', {
+                                get: () => originalPosition.z,
+                                set: () => originalPosition.z
+                            });
+                        }
+                        
+                        // Freeze camera rotation
+                        if (camera.rotation && originalRotation) {
+                            Object.defineProperty(camera.rotation, 'x', {
+                                get: () => originalRotation.x,
+                                set: () => originalRotation.x
+                            });
+                            Object.defineProperty(camera.rotation, 'y', {
+                                get: () => originalRotation.y,
+                                set: () => originalRotation.y
+                            });
+                            Object.defineProperty(camera.rotation, 'z', {
+                                get: () => originalRotation.z,
+                                set: () => originalRotation.z
+                            });
+                        }
+                        
+                        // Freeze camera target
+                        if (camera.target && originalTarget) {
+                            Object.defineProperty(camera.target, 'x', {
+                                get: () => originalTarget.x,
+                                set: () => originalTarget.x
+                            });
+                            Object.defineProperty(camera.target, 'y', {
+                                get: () => originalTarget.y,
+                                set: () => originalTarget.y
+                            });
+                            Object.defineProperty(camera.target, 'z', {
+                                get: () => originalTarget.z,
+                                set: () => originalTarget.z
+                            });
+                        }
+                        
+                        // Disable any update methods
+                        if (camera.update) {
+                            camera.update = () => {};
+                        }
+                    }
+                    
+                    // Disable user input on the entire runtime
+                    if (spline.runtime.input) {
+                        spline.runtime.input.disable();
+                    }
+                }
+            }
+        } catch (err) {
+            console.log('Could not modify Spline scene:', err);
+        }
+        
+        // Try to remove watermark immediately after load
+        setTimeout(() => {
+            const watermarks = document.querySelectorAll('[data-spline-watermark], a[href*="spline"], canvas + div');
+            watermarks.forEach(watermark => {
+                if (watermark) {
+                    watermark.style.display = 'none';
+                    watermark.style.opacity = '0';
+                    watermark.style.visibility = 'hidden';
+                }
+            });
+        }, 100);
+    };
+
     return (
         <div className="homepage">
             <Header />
@@ -143,10 +275,18 @@ const HomePage = () => {
                     </div>
                     
                     <div className="hero-visual">
-                        <div className="abstract-shape shape-1"></div>
-                        <div className="abstract-shape shape-2"></div>
-                        <div className="abstract-shape shape-3"></div>
-                        <div className="glowing-circle"></div>
+                        <Spline
+                            scene="https://prod.spline.design/D600HNWz1PyuyA94/scene.splinecode"
+                            className="spline-scene"
+                            style={{ 
+                                width: '100%', 
+                                height: '100%',
+                                transformOrigin: 'center center',
+                                background: 'transparent'
+                            }}
+                            onLoad={onSplineLoad}
+                            renderOnDemand={false}
+                        />
                     </div>
                 </div>
                 
