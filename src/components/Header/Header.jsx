@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
+import useNavigation from '../../hooks/useNavigation';
+import { preventBodyScroll } from '../../utils/scrollUtils';
 
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -9,6 +11,7 @@ const Header = () => {
     const location = useLocation();
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
+    const navigateWithTransition = useNavigation();
 
     // Handle scroll event to change header appearance
     useEffect(() => {
@@ -42,20 +45,32 @@ const Header = () => {
         if (mobileMenuOpen) {
             document.addEventListener('mousedown', handleOutsideClick);
             // Prevent scrolling when menu is open
-            document.body.style.overflow = 'hidden';
+            preventBodyScroll(true);
         } else {
             document.removeEventListener('mousedown', handleOutsideClick);
             // Restore scrolling when menu is closed
-            document.body.style.overflow = 'visible';
+            preventBodyScroll(false);
         }
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
-            document.body.style.overflow = 'visible';
+            preventBodyScroll(false);
         };
     }, [mobileMenuOpen]);
 
     const toggleMobileMenu = () => {
         setMobileMenuOpen(!mobileMenuOpen);
+    };
+
+    // Custom navigation handler
+    const handleNavigation = (path, e) => {
+        e.preventDefault();
+        if (path === location.pathname) return;
+        
+        if (mobileMenuOpen) {
+            setMobileMenuOpen(false);
+        }
+        
+        navigateWithTransition(path);
     };
 
     return (
@@ -65,7 +80,7 @@ const Header = () => {
             </div>
             <div className="header-container">
                 <div className="logo-container">
-                    <Link to="/" className="logo">ADVANIX</Link>
+                    <Link to="/" onClick={(e) => handleNavigation('/', e)} className="logo">ADVANIX</Link>
                 </div>
                 
                 <nav className="main-nav">
@@ -74,6 +89,7 @@ const Header = () => {
                             <Link 
                                 to="/"
                                 className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+                                onClick={(e) => handleNavigation('/', e)}
                             >
                                 Home
                             </Link>
@@ -82,6 +98,7 @@ const Header = () => {
                             <Link 
                                 to="/history" 
                                 className={`nav-link ${location.pathname === '/history' ? 'active' : ''}`}
+                                onClick={(e) => handleNavigation('/history', e)}
                             >
                                 Projects
                             </Link>
@@ -90,6 +107,7 @@ const Header = () => {
                             <Link 
                                 to="/services" 
                                 className={`nav-link ${location.pathname === '/services' ? 'active' : ''}`}
+                                onClick={(e) => handleNavigation('/services', e)}
                             >
                                 Services
                             </Link>
@@ -98,6 +116,7 @@ const Header = () => {
                             <Link 
                                 to="/contact" 
                                 className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`}
+                                onClick={(e) => handleNavigation('/contact', e)}
                             >
                                 Contact
                             </Link>
@@ -106,7 +125,7 @@ const Header = () => {
                 </nav>
                 
                 <div className="cta-container">
-                    <Link to="/get-started" className="cta-button">Get Started</Link>
+                    <Link to="/get-started" onClick={(e) => handleNavigation('/get-started', e)} className="cta-button">Get Started</Link>
                 </div>
                 
                 {/* Mobile Menu Button - Only visible when menu is closed */}
@@ -148,7 +167,7 @@ const Header = () => {
                                 <Link 
                                     to="/" 
                                     className={`mobile-nav-link ${location.pathname === '/' ? 'active' : ''}`}
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onClick={(e) => handleNavigation('/', e)}
                                 >
                                     Home
                                 </Link>
@@ -157,7 +176,7 @@ const Header = () => {
                                 <Link 
                                     to="/history" 
                                     className={`mobile-nav-link ${location.pathname === '/history' ? 'active' : ''}`}
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onClick={(e) => handleNavigation('/history', e)}
                                 >
                                     Projects
                                 </Link>
@@ -166,7 +185,7 @@ const Header = () => {
                                 <Link 
                                     to="/services" 
                                     className={`mobile-nav-link ${location.pathname === '/services' ? 'active' : ''}`}
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onClick={(e) => handleNavigation('/services', e)}
                                 >
                                     Services
                                 </Link>
@@ -175,7 +194,7 @@ const Header = () => {
                                 <Link 
                                     to="/contact" 
                                     className={`mobile-nav-link ${location.pathname === '/contact' ? 'active' : ''}`}
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onClick={(e) => handleNavigation('/contact', e)}
                                 >
                                     Contact
                                 </Link>
@@ -187,7 +206,7 @@ const Header = () => {
                         <Link 
                             to="/get-started" 
                             className="mobile-cta-button"
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={(e) => handleNavigation('/get-started', e)}
                         >
                             Get Started
                         </Link>

@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ProjectsHistory.css'
+import usePageTransition from '../../hooks/usePageTransition';
 
 function ProjectsHistory() {
+    const { style: pageTransitionStyle } = usePageTransition(true, 700);
+    
     const [timelineItems, setTimelineItems] = useState([
         {
             year: '2010',
@@ -143,7 +146,7 @@ function ProjectsHistory() {
     }, []);
 
     return (
-        <div>
+        <div style={pageTransitionStyle}>
             {/* Company History Section */}
             <section className="history-section">
                 <div className="timeline-particles">
@@ -240,7 +243,6 @@ function ProjectsHistory() {
                     </div>
                 </div>
             </section>
-
         </div>
     );
 }

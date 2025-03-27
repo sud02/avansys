@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ServicesPage.css';
+import usePageTransition from '../../../hooks/usePageTransition';
 
 const ServicesPage = () => {
+    const { style: pageTransitionStyle } = usePageTransition(true, 600);
     const [activeService, setActiveService] = useState(null);
     const serviceItemsRef = useRef([]);
 
@@ -77,7 +79,7 @@ const ServicesPage = () => {
     ];
 
     return (
-        <div className="services-page">
+        <div className="services-page" style={pageTransitionStyle}>
             <section className="services-section">
                 <div className="services-particles">
                     {Array.from({ length: 30 }).map((_, i) => (

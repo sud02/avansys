@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { init, send } from 'emailjs-com'; 
 import './ContactForm.css';
+import usePageTransition from '../../hooks/usePageTransition';
 
 init("yvf4mewD3SJB6ZBfp");
 
 const ContactForm = () => {
+    const { style: pageTransitionStyle } = usePageTransition(true, 500);
+    
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -120,7 +123,11 @@ const ContactForm = () => {
     };
 
     return (
-        <section className={`contact-section ${isVisible ? 'visible' : ''}`} ref={formRef}>
+        <section 
+            className={`contact-section ${isVisible ? 'visible' : ''}`} 
+            ref={formRef}
+            style={pageTransitionStyle}
+        >
             <div className="contact-background">
                 <div className="contact-particles">
                     {Array(10).fill().map((_, i) => (
