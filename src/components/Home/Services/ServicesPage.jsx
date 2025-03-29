@@ -1,37 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import './ServicesPage.css';
 import usePageTransition from '../../../hooks/usePageTransition';
 
 const ServicesPage = () => {
     const { style: pageTransitionStyle } = usePageTransition(true, 600);
     const [activeService, setActiveService] = useState(null);
-    const serviceItemsRef = useRef([]);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        const index = serviceItemsRef.current.indexOf(entry.target);
-                        entry.target.style.setProperty('--delay', index + 1);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.2 }
-        );
-
-        serviceItemsRef.current.forEach((item) => {
-            if (item) observer.observe(item);
-        });
-
-        return () => {
-            serviceItemsRef.current.forEach((item) => {
-                if (item) observer.unobserve(item);
-            });
-        };
-    }, []);
+    const handleServiceClick = (index) => {
+        setActiveService(activeService === index ? null : index);
+    };
 
     const services = [
         {
@@ -112,9 +89,8 @@ const ServicesPage = () => {
                         <div
                             key={index}
                             className={`service-item ${activeService === index ? 'active' : ''}`}
-                            ref={(el) => (serviceItemsRef.current[index] = el)}
-                            onClick={() => setActiveService(activeService === index ? null : index)}
-                            style={{ '--delay': index + 1 }}
+                            onClick={() => handleServiceClick(index)}
+                            style={{ animationDelay: `${index * 0.2}s` }}
                         >
                             <div className="service-content">
                                 <div className="service-icon">{service.icon}</div>
