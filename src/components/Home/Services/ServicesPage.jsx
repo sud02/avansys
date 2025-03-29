@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './ServicesPage.css';
 import usePageTransition from '../../../hooks/usePageTransition';
 
@@ -6,9 +6,9 @@ const ServicesPage = () => {
     const { style: pageTransitionStyle } = usePageTransition(true, 600);
     const [activeService, setActiveService] = useState(null);
 
-    const handleServiceClick = (index) => {
+    const handleServiceClick = useCallback((index) => {
         setActiveService(activeService === index ? null : index);
-    };
+    }, [activeService]);
 
     const services = [
         {
@@ -90,7 +90,7 @@ const ServicesPage = () => {
                             key={index}
                             className={`service-item ${activeService === index ? 'active' : ''}`}
                             onClick={() => handleServiceClick(index)}
-                            style={{ animationDelay: `${index * 0.2}s` }}
+                            style={{ animationDelay: `${index * 0.1}s` }}
                         >
                             <div className="service-content">
                                 <div className="service-icon">{service.icon}</div>
