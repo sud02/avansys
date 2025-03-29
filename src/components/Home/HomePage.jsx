@@ -3,7 +3,6 @@ import './HomePage.css';
 import Spline from '@splinetool/react-spline';
 import ContactForm from '../Contact/ContactForm';
 import FloatingRobot from '../Robot/FloatingRobot';
-import Header from '../Header/Header';
 
 const HomePage = () => {
     const [isVisible, setIsVisible] = useState({
@@ -238,8 +237,6 @@ const HomePage = () => {
 
     return (
         <div className="homepage">
-            <Header />
-            
             {/* Custom cursor */}
             <div className="cursor" ref={cursorRef}></div>
             <div className="cursor-dot" ref={cursorDotRef}></div>
