@@ -1,0 +1,280 @@
+// Global Variables
+$primary-color: #8B4513; // Caramel brown
+$secondary-color: #D2691E; // Chocolate orange
+$accent-color: #FFF8DC; // Cream
+$text-color: #2C2C2C;
+$background-color: #FFFFFF;
+$border-radius: 8px;
+$box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+// Typography
+$font-family-primary: 'Nelphim', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-size-base: 16px;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+$font-weight-bold-700: 700;
+
+// Typography Sizes
+$font-size-36: 36px;
+$font-size-20: 20px;
+$font-size-16: 16px;
+$font-size-14: 14px;
+$font-size-12: 12px;
+
+// Typography Line Heights
+$line-height-100: 100%;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin button-base {
+  padding: $spacing-md $spacing-lg;
+  border: none;
+  border-radius: $border-radius;
+  font-family: $font-family-primary;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $primary-color;
+  color: white;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba($primary-color, 0.3);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: transparent;
+  color: $primary-color;
+  border: 2px solid $primary-color;
+
+  &:hover {
+    background-color: $primary-color;
+    color: white;
+  }
+}
+
+@mixin card {
+  background: white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+}
+
+@mixin responsive($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+// Typography Mixins
+@mixin typography-36pt-title {
+  font-family: "Nelphim";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 36px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  text-transform: capitalize;
+}
+
+@mixin typography-20pt-subtitle {
+  font-family: "Nelphim";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+@mixin typography-16pt-body {
+  font-family: "Nelphim";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+@mixin typography-14pt-small {
+  font-family: "Nelphim";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+@mixin typography-12pt-tiny {
+  font-family: "Nelphim";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+// Utility classes
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+  box-sizing: border-box;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-sm { margin-bottom: $spacing-sm; }
+.mb-md { margin-bottom: $spacing-md; }
+.mb-lg { margin-bottom: $spacing-lg; }
+.mb-xl { margin-bottom: $spacing-xl; }
+
+.mt-sm { margin-top: $spacing-sm; }
+.mt-md { margin-top: $spacing-md; }
+.mt-lg { margin-top: $spacing-lg; }
+.mt-xl { margin-top: $spacing-xl; }
+
+// Typography Utility Classes
+.text-36pt-title {
+  @include typography-36pt-title;
+}
+
+.text-20pt-subtitle {
+  @include typography-20pt-subtitle;
+}
+
+.text-16pt-body {
+  @include typography-16pt-body;
+}
+
+.text-14pt-small {
+  @include typography-14pt-small;
+}
+
+.text-12pt-tiny {
+  @include typography-12pt-tiny;
+}
+
+// Global styles
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  line-height: 1.6;
+  color: $text-color;
+  background-color: $background-color;
+  // Mobile-first: center content on larger screens
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  // Mobile optimizations
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(139, 69, 19, 0.1);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#root {
+  width: 100%;
+  max-width: 428px; // Standard mobile width
+  min-height: 100vh;
+  background: $background-color;
+  position: relative;
+  // Enable touch interactions
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+// Mobile-specific button improvements
+button {
+  min-height: 44px; // iOS touch target minimum
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+// Mobile input improvements
+input, textarea, select {
+  font-size: 16px; // Prevents zoom on iOS
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 $spacing-md 0;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0 0 $spacing-md 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Lazy loading for images
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &[src] {
+    opacity: 1;
+  }
+}

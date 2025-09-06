@@ -1,0 +1,78 @@
+// Typography System - Nelphim Only
+// This file contains the complete typography system for the Caramel project
+
+// Import globals to access mixins and variables
+@import 'globals';
+
+// Import Nelphim font (you'll need to add the actual font files)
+@font-face {
+  font-family: 'Nelphim';
+  src: url('../assets/fonts/Nelphim-Regular.woff2') format('woff2'),
+       url('../assets/fonts/Nelphim-Regular.woff') format('woff'),
+       url('../assets/fonts/Nelphim-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Typography for specific components
+.hero-title {
+  @include typography-36pt-title;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  @include typography-36pt-title;
+  margin-bottom: 1.5rem;
+}
+
+.card-title {
+  @include typography-20pt-subtitle;
+  margin-bottom: 0.5rem;
+}
+
+.card-description {
+  @include typography-16pt-body;
+  margin-bottom: 1rem;
+}
+
+.button-text {
+  @include typography-16pt-body;
+  font-weight: 500;
+}
+
+.caption-text {
+  @include typography-12pt-tiny;
+  color: #666;
+}
+
+// Text color variations
+.text-primary {
+  color: $primary-color;
+}
+
+.text-secondary {
+  color: $secondary-color;
+}
+
+.text-muted {
+  color: #666;
+}
+
+.text-white {
+  color: white;
+}
+
+// Text alignment utilities
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}

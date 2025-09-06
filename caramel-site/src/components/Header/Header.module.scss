@@ -1,0 +1,116 @@
+@use "@/styles/globals.scss";
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 428px;
+  height: 90px;
+  background: transparent;
+  z-index: 1000;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.heartIcon {
+  width: 20.58px;
+  height: 17.43px;
+  object-fit: contain;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.logo {
+  width: 138px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.bagButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  position: relative;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.bagIcon {
+  width: 20.78px;
+  height: 20.78px;
+  object-fit: contain;
+}
+
+// Responsive adjustments
+@media (max-width: 375px) {
+  .header {
+    padding: 0 0.75rem;
+  }
+
+  .logo {
+    width: 120px;
+    height: 45px;
+  }
+
+  .heartIcon {
+    width: 18px;
+    height: 15px;
+  }
+
+  .bagIcon {
+    width: 18px;
+    height: 18px;
+  }
+}
