@@ -125,7 +125,7 @@ const Header = () => {
                 </nav>
                 
                 <div className="cta-container">
-                    <Link to="/get-started" onClick={(e) => handleNavigation('/get-started', e)} className="cta-button">Get Started</Link>
+                    <Link to="/contact" onClick={(e) => handleNavigation('/contact', e)} className="cta-button">Get Started</Link>
                 </div>
                 
                 {/* Mobile Menu Button - Only visible when menu is closed */}

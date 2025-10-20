@@ -9,13 +9,6 @@ function Footer() {
                 <div className="footer-logo-section">
                     <h2 className="footer-logo">ADVANIX</h2>
                     <p className="footer-tagline">Creating exceptional digital experiences</p>
-                    <div className="footer-newsletter">
-                        <h3>Stay Connected</h3>
-                        <div className="newsletter-form">
-                            <input type="email" placeholder="Your email" />
-                            <button className="btn-subscribe">Subscribe</button>
-                        </div>
-                    </div>
                 </div>
                 
                 <div className="footer-nav">
@@ -29,15 +22,6 @@ function Footer() {
                         </ul>
                     </div>
                     
-                    <div className="footer-nav-column">
-                        <h3 className="footer-heading">Resources</h3>
-                        <ul className="footer-list">
-                            <li><Link to="/blog" className="footer-link">Blog</Link></li>
-                            <li><Link to="/case-studies" className="footer-link">Case Studies</Link></li>
-                            <li><Link to="/careers" className="footer-link">Careers</Link></li>
-                            <li><Link to="/contact" className="footer-link">Contact</Link></li>
-                        </ul>
-                    </div>
                     
                     <div className="footer-nav-column">
                         <h3 className="footer-heading">Legal</h3>
@@ -55,12 +39,6 @@ function Footer() {
             <div className="footer-bottom">
                 <div className="copyright">
                     &copy; {new Date().getFullYear()} Advanix. All rights reserved.
-                </div>
-                <div className="footer-social">
-                    <a href="https://twitter.com" className="social-link" target="_blank" rel="noopener noreferrer"><span className="social-icon">𝕏</span></a>
-                    <a href="https://linkedin.com" className="social-link" target="_blank" rel="noopener noreferrer"><span className="social-icon">in</span></a>
-                    <a href="https://instagram.com" className="social-link" target="_blank" rel="noopener noreferrer"><span className="social-icon">IG</span></a>
-                    <a href="https://dribbble.com" className="social-link" target="_blank" rel="noopener noreferrer"><span className="social-icon">Db</span></a>
                 </div>
                 <div className="footer-email">
                     <a href="mailto:business@advanix.in" className="footer-email-link">business@advanix.in</a>

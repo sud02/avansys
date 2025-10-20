@@ -8,6 +8,10 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header.jsx';
 import ScrollToTop from './components/ScrollToTop';
 import './App.css';
+import LegalPage from './components/Legal/LegalPage.jsx';
+import TermsPage from './components/Legal/TermsPage.jsx';
+import PrivacyPage from './components/Legal/PrivacyPage.jsx';
+import CookiePolicyPage from './components/Legal/CookiePolicyPage.jsx';
 
 function App() {
     return (
@@ -21,6 +25,10 @@ function App() {
                         <Route path="/history" element={<ProjectsHistory />} />
                         <Route path="/services" element={<ServicesPage />} />
                         <Route path="/contact" element={<ContactPage />} />
+                        <Route path="/legal" element={<LegalPage />} />
+                        <Route path="/terms" element={<TermsPage />} />
+                        <Route path="/privacy" element={<PrivacyPage />} />
+                        <Route path="/cookie-policy" element={<CookiePolicyPage />} />
                     </Routes>
                 </div>
                 <Footer />

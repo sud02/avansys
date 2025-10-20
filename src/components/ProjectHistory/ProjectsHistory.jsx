@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ProjectsHistory.css'
 import usePageTransition from '../../hooks/usePageTransition';
+import { fetchOpenSheetRows, mapRowsToProjects } from '../../utils/opensheet';
+const DEFAULT_PROJECTS_SHEET_URL = 'https://opensheet.elk.sh/1J_IFgpw99iYJ4YSZnxrZQog8KBD0r4QksuKIu22Z1SU/Sheet1';
 
 function ProjectsHistory() {
     const { style: pageTransitionStyle } = usePageTransition(true, 700);
@@ -33,44 +35,9 @@ function ProjectsHistory() {
         }
     ]);
 
-    const [projects, setProjects] = useState([
-        {
-            title: 'E-Commerce Platform',
-            description: 'Built a scalable e-commerce platform handling 100k+ daily users. Features include AI-powered product recommendations, real-time inventory management, and seamless payment integration with major providers.',
-            image: '/images/projects/ecommerce-platform.jpg',
-            technologies: ['React', 'Node.js', 'MongoDB', 'AWS'],
-            link: '#',
-            stats: {
-                users: '100k+',
-                transactions: '1M+',
-                uptime: '99.99%'
-            }
-        },
-        {
-            title: 'Financial Analytics Dashboard',
-            description: 'Developed a comprehensive financial analytics platform for institutional investors. Real-time market data visualization, predictive modeling, and automated reporting capabilities help make informed investment decisions.',
-            image: '/images/projects/financial-dashboard.jpg',
-            technologies: ['Vue.js', 'Python', 'TensorFlow', 'PostgreSQL'],
-            link: '#',
-            stats: {
-                dataPoints: '5M+',
-                accuracy: '99.5%',
-                processTime: '<100ms'
-            }
-        },
-        {
-            title: 'Healthcare Management System',
-            description: 'Revolutionized patient care with an integrated healthcare management solution. Features include secure patient records, appointment scheduling, telemedicine integration, and automated billing systems.',
-            image: '/images/projects/healthcare-system.jpg',
-            technologies: ['Angular', 'Java Spring', 'Oracle', 'HIPAA Compliant'],
-            link: '#',
-            stats: {
-                patients: '500k+',
-                hospitals: '50+',
-                satisfaction: '98%'
-            }
-        }
-    ]);
+    const [projects, setProjects] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const timelineItemsRef = useRef([]);
     const projectItemsRef = useRef([]);
@@ -145,6 +112,61 @@ function ProjectsHistory() {
         };
     }, []);
 
+    // Dynamically load projects from OpenSheet
+    useEffect(() => {
+        const SHEET_URL = process.env.REACT_APP_PROJECTS_SHEET_URL || DEFAULT_PROJECTS_SHEET_URL;
+
+        const controller = new AbortController();
+        let isMounted = true;
+        async function load() {
+            try {
+                setIsLoading(true);
+                setError('');
+                const rows = await fetchOpenSheetRows(SHEET_URL, controller.signal);
+                const mapped = mapRowsToProjects(rows);
+                if (isMounted) setProjects(mapped);
+            } catch (err) {
+                if (isMounted) setError(err.message || 'Failed to load projects');
+            } finally {
+                if (isMounted) setIsLoading(false);
+            }
+        }
+        load();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        };
+    }, []);
+
+    // Re-attach observers for dynamically loaded project items so they become visible
+    useEffect(() => {
+        if (!projects || projects.length === 0) return;
+
+        const projectObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        projectObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
+        );
+
+        // Observe all current project items
+        projectItemsRef.current.forEach((item) => {
+            if (item) projectObserver.observe(item);
+        });
+
+        return () => {
+            projectItemsRef.current.forEach((item) => {
+                if (item) projectObserver.unobserve(item);
+            });
+        };
+    }, [projects]);
+
     return (
         <div style={pageTransitionStyle}>
             {/* Company History Section */}
@@ -196,7 +218,17 @@ function ProjectsHistory() {
                     <div className="section-title-underline"></div>
                 </div>
                 <div className="project-container">
+                    {isLoading && (
+                        <div className="project-loading">Loading projects...</div>
+                    )}
+                    {error && !isLoading && (
+                        <div className="project-error">{error}</div>
+                    )}
                     {/* Grid of Projects */}
+                    {!isLoading && !error && projects.length === 0 && (
+                        <div className="project-empty">No projects found in the sheet.</div>
+                    )}
+                    {!isLoading && !error && projects.length > 0 && (
                     <div className="project-grid">
                         {projects.map((project, index) => (
                             <div 
@@ -228,11 +260,13 @@ function ProjectsHistory() {
                                     </div>
                                     <h3 className="project-title">{project.title}</h3>
                                     <p className="project-description">{project.description}</p>
-                                    <div className="project-technologies">
-                                        {project.technologies.map((tech, i) => (
-                                            <span key={i} className="tech-tag">{tech}</span>
-                                        ))}
-                                    </div>
+                                    {project.technologies && project.technologies.length > 0 && (
+                                        <div className="project-technologies">
+                                            {project.technologies.map((tech, i) => (
+                                                <span key={i} className="tech-tag">{tech}</span>
+                                            ))}
+                                        </div>
+                                    )}
                                     <a href={project.link} className="project-link">
                                         View Project
                                         <span className="arrow-icon">→</span>
@@ -241,6 +275,7 @@ function ProjectsHistory() {
                             </div>
                         ))}
                     </div>
+                    )}
                 </div>
             </section>
         </div>
