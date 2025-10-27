@@ -267,10 +267,6 @@ function ProjectsHistory() {
                                             ))}
                                         </div>
                                     )}
-                                    <a href={project.link} className="project-link">
-                                        View Project
-                                        <span className="arrow-icon">→</span>
-                                    </a>
                                 </div>
                             </div>
                         ))}
