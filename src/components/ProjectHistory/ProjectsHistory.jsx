@@ -9,29 +9,29 @@ function ProjectsHistory() {
     
     const [timelineItems, setTimelineItems] = useState([
         {
-            year: '2010',
+            year: '2023',
             title: 'Company Founded',
             description: 'Our journey began with a vision to transform the digital landscape through innovative solutions.'
         },
         {
-            year: '2013',
+            year: '2024',
             title: 'First Major Project',
             description: 'Successfully delivered our first enterprise-scale project, setting the foundation for future growth.'
         },
         {
-            year: '2016',
+            year: '2024',
             title: 'International Expansion',
             description: 'Expanded our operations globally, establishing partnerships across Europe and Asia.'
         },
         {
-            year: '2019',
+            year: '2025',
             title: 'Technological Innovation',
-            description: 'Pioneered new methodologies in web development, earning industry recognition for our cutting-edge approaches.'
+            description: 'Implemented solutions aligned with the latest AI methodologies such as RAG and related approaches.'
         },
         {
-            year: '2023',
+            year: '2025',
             title: 'Industry Leadership',
-            description: 'Positioned as an industry leader with a portfolio of successful projects across diverse sectors.'
+            description: 'Built an experienced team capable of delivering production-grade code and implementations.'
         }
     ]);
 
