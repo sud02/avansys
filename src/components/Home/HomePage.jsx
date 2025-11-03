@@ -366,9 +366,47 @@ const HomePage = () => {
                                 <p>Hover to Explore</p>
                             </div>
                             <div className="demo-content">
-                                <div className="demo-item"></div>
-                                <div className="demo-item"></div>
-                                <div className="demo-item"></div>
+                                <div className="demo-item">
+                                    <img
+                                        className="demo-icon"
+                                        src="https://cdn.simpleicons.org/amazonaws/FF9900"
+                                        alt="AWS"
+                                        loading="lazy"
+                                        onError={(e) => {
+                                            e.currentTarget.src = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg";
+                                        }}
+                                    />
+                                </div>
+                                <div className="demo-item">
+                                    <img
+                                        className="demo-icon"
+                                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                                        alt="Python"
+                                        loading="lazy"
+                                    />
+                                </div>
+                                <div className="demo-item">
+                                    <div className="stack-icons">
+                                        <img
+                                            className="demo-icon small"
+                                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                                            alt="React"
+                                            loading="lazy"
+                                        />
+                                        <img
+                                            className="demo-icon small"
+                                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                                            alt="Node.js"
+                                            loading="lazy"
+                                        />
+                                        <img
+                                            className="demo-icon small"
+                                            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+                                            alt="Docker"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

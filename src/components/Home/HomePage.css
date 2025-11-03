@@ -177,6 +177,7 @@ html, body {
 .hero-title-line {
     display: block;
     background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     position: relative;
@@ -355,6 +356,7 @@ canvas {
     font-weight: 700;
     margin-bottom: 20px;
     background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.7));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
@@ -540,6 +542,7 @@ canvas {
     font-weight: 700;
     margin-bottom: 20px;
     background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.7));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -575,9 +578,10 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.35);
     transition: opacity 0.5s ease;
     z-index: 2;
+    pointer-events: none;
 }
 
 .demo-overlay p {
@@ -632,7 +636,7 @@ canvas {
 }
 
 .demo-item:nth-child(3) {
-    transform: translateZ(20px) translateX(-20px) translateY(80px);
+    transform: translateZ(20px) translateX(-70px) translateY(80px);
     width: 200px;
     height: 100px;
     background: linear-gradient(135deg, rgba(100,220,100,0.15) 0%, rgba(30,80,30,0.05) 100%);
@@ -647,7 +651,34 @@ canvas {
 }
 
 .demo-box:hover .demo-item:nth-child(3) {
-    transform: translateZ(40px) translateX(-30px) translateY(90px);
+    transform: translateZ(40px) translateX(-90px) translateY(90px);
+}
+.demo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.demo-icon {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+    user-select: none;
+    pointer-events: none;
+}
+
+.stack-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.demo-icon.small {
+    width: 44px;
+    height: 44px;
 }
 
 /* Responsive adjustments */
