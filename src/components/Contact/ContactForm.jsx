@@ -79,12 +79,35 @@ const ContactForm = () => {
         
         setFormState(prev => ({ ...prev, isSubmitting: true, error: null }));
 
+        const messageHTML = (formData.message || '').replace(/\n/g, '<br/>');
+        const inlineMsg = (formData.message || '').replace(/\s+/g, ' ').slice(0, 500);
+
         const templateParams = {
-            from_name: formData.name,    
-            from_email: formData.email,   
-            from_phone: formData.phone,  
+            from_name: formData.name,
+            user_name: formData.name,
+            from_email: formData.email,
+            user_email: formData.email,
+            reply_to: formData.email,
+            from_phone: formData.phone ? `${formData.phone}${inlineMsg ? ' | Message: ' + inlineMsg : ''}` : (inlineMsg ? `Message: ${inlineMsg}` : ''),
+            phone: formData.phone ? `${formData.phone}${inlineMsg ? ' | Message: ' + inlineMsg : ''}` : (inlineMsg ? `Message: ${inlineMsg}` : ''),
+
             message: formData.message,
+            message_html: messageHTML,
+            user_message: formData.message,
+            message_text: formData.message,
+            content: formData.message,
+            comments: formData.message,
+            body: formData.message,
+            text: formData.message,
+            details: formData.message,
+            desc: formData.message,
+            description: formData.message,
+            email_body: formData.message,
+            message_body: formData.message,
+
+            subject: `New contact message: ${formData.message ? formData.message.slice(0, 60) : ''}`,
             to_name: 'Advanix Team',
+            to_email: 'business@advanix.in'
         };
 
         // Send email
