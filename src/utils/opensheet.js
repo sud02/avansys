@@ -19,6 +19,49 @@ export async function fetchOpenSheetRows(sheetUrl, signal) {
 }
 
 /**
+ * Normalizes an image URL value coming from the sheet.
+ * - Returns only valid http/https URLs
+ * - Converts common Google Drive share links to direct-view URLs
+ * - Ignores placeholder text values like "View Image" that are not URLs
+ *
+ * @param {string} raw
+ * @returns {string}
+ */
+function normalizeImageUrl(raw) {
+    if (!raw) return '';
+
+    const trimmed = String(raw).trim();
+
+    // Only accept http/https URLs; ignore placeholder words like "View Image"
+    if (!/^https?:\/\//i.test(trimmed)) return '';
+
+    try {
+        const url = new URL(trimmed);
+
+        // Handle common Google Drive share formats and turn them into direct-view links
+        if (url.hostname.includes('drive.google.com')) {
+            // e.g. https://drive.google.com/file/d/FILE_ID/view
+            const pathMatch = url.pathname.match(/\/file\/d\/([^/]+)\//);
+            const idFromPath = pathMatch && pathMatch[1];
+
+            // e.g. https://drive.google.com/open?id=FILE_ID or /uc?id=FILE_ID
+            const idFromSearch = url.searchParams.get('id');
+
+            const fileId = idFromPath || idFromSearch;
+            if (fileId) {
+                return `https://drive.google.com/uc?export=view&id=${fileId}`;
+            }
+        }
+
+        // For all other hosts, just return the cleaned URL as-is
+        return trimmed;
+    } catch (e) {
+        // If URL constructor fails, treat as invalid and return empty so UI can fallback
+        return '';
+    }
+}
+
+/**
  * Maps generic sheet rows into the Projects UI model.
  * Expected columns in the sheet (case-insensitive):
  * - title
@@ -59,7 +102,8 @@ export function mapRowsToProjects(rows) {
 
             const title = get('title');
             const description = get('description', 'desc');
-            const image = get('imageurl', 'image url', 'image');
+            const rawImage = get('imageurl', 'image url', 'image');
+            const image = normalizeImageUrl(rawImage);
             const link = get('link', 'project link', 'url');
             const technologiesStr = get('technologies');
             const technologies = (technologiesStr || '')
